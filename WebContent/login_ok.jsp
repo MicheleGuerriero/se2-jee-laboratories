@@ -13,17 +13,15 @@
 <body>
 	<h1>Login Completed Successfully!</h1>
 	<form method="post" action="car" id="direct_signup">
-		Insert new car! 
-		<label>Name: </label><input type="text" name="carName" /><br />
-		<label>Number of spots: </label><input type="text" name="nSpots" /> 
-		<input type="hidden" name="submit" value="1" /> 
-		<input type="submit" value="InsertCar" />
+		Insert new car! <label>Name: </label><input type="text" name="carName" /><br />
+		<label>Number of spots: </label><input type="text" name="nSpots" /> <input
+			type="hidden" name="submit" value="1" /> <input type="submit"
+			value="InsertCar" />
 	</form>
 	<form method="post" action="reservation" id="insert_reservation">
-		Insert new reservation! 
-		<label>Car: </label><input type="text" name="carName" /><br /> 
-		<input type="hidden" name="submit" value="1" /> 
-		<input type="submit" value="InsertReservation" />
+		Insert new reservation! <label>Car: </label><input type="text"
+			name="carName" /><br /> <input type="hidden" name="submit"
+			value="1" /> <input type="submit" value="InsertReservation" />
 	</form>
 
 	<h1>User reservations.</h1>

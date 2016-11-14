@@ -9,12 +9,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import it.polimi.seiiexamples.entities.Car;
-import it.polimi.seiiexamples.entities.Reservation;
-import it.polimi.seiiexamples.entities.User;
 
 @Stateless
 public class CarBean {

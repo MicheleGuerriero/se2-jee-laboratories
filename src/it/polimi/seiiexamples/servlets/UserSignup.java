@@ -6,8 +6,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang3.StringUtils;
-
 import it.polimi.seiiexamples.entities.User;
 
 public class UserSignup extends GenericServlet {
@@ -15,7 +13,7 @@ public class UserSignup extends GenericServlet {
 	private static final long serialVersionUID = 1L;
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-			this.showJSP("/new_user.jsp", req, resp);
+			req.getRequestDispatcher("/new_user.jsp").forward(req, resp);
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
@@ -28,16 +26,16 @@ public class UserSignup extends GenericServlet {
 			if(userService.insertUser(u) != null){
 				req.getSession().setAttribute("userId", u.getId());
 				// req.setAttribute("user", u);
-				this.showJSP("/user_ok.jsp", req, resp);
-			} else {
-				this.showJSP("/error.jsp", req, resp);
+				req.getRequestDispatcher("/user_ok.jsp").forward(req, resp);
 
+			} else {
+				req.getRequestDispatcher("/error.jsp").forward(req, resp);
 			}
 		} catch (IllegalArgumentException e) {
 			req.setAttribute("username", req.getParameter("username"));
 			req.setAttribute("email", req.getParameter("email"));
 			req.setAttribute("error", e.getMessage());
-			this.showJSP("/new_user.jsp", req, resp);
+			req.getRequestDispatcher("/new_user.jsp").forward(req, resp);
 		} 
 	}
 

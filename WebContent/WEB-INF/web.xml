@@ -5,9 +5,9 @@
 	id="WebApp_ID" version="3.1">
 	<display-name>SEIIExamples</display-name>
 	<welcome-file-list>
-	    <welcome-file>home.jsp</welcome-file>
+		<welcome-file>home.jsp</welcome-file>
 	</welcome-file-list>
-  	<servlet>
+	<servlet>
 		<servlet-name>index</servlet-name>
 		<jsp-file>home.jsp</jsp-file>
 	</servlet>
@@ -30,14 +30,6 @@
 	<servlet-mapping>
 		<servlet-name>CarServlet</servlet-name>
 		<url-pattern>/car</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>AddServlet</servlet-name>
-		<servlet-class>it.polimi.seiiexamples.servlets.AddServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>AddServlet</servlet-name>
-		<url-pattern>/add</url-pattern>
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>ReservationServlet</servlet-name>

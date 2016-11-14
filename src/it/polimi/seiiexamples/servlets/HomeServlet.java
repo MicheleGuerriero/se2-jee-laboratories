@@ -16,8 +16,7 @@ public class HomeServlet extends GenericServlet {
 	}
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-		this.showJSP("/home.jsp", req, resp);
+		req.getRequestDispatcher("/home.jsp").forward(req, resp);
 	}
 
 }

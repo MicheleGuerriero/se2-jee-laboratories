@@ -6,7 +6,6 @@ import it.polimi.seiiexamples.entities.Car;
 import it.polimi.seiiexamples.entities.User;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -32,23 +31,15 @@ public class CarServlet extends GenericServlet {
 				User u = userService.getUserFromId((int) req.getSession().getAttribute("userId"));
 				req.setAttribute("userReservations", reservationService.getFromUser(u));
 				req.setAttribute("cars", carService.getCarList());
-				this.showJSP("/login_ok.jsp", req, resp);
+				req.getRequestDispatcher("/login_ok.jsp").forward(req, resp);
 			} else {
-				this.showJSP("/error.jsp", req, resp);
+				req.getRequestDispatcher("/error.jsp").forward(req, resp);
 			}
 		} catch (IllegalArgumentException e) {
 			req.setAttribute("nSpots", req.getParameter("nSpots"));
 			req.setAttribute("carName", req.getParameter("carName"));
 			req.setAttribute("error", e.getMessage());
-			this.showJSP("/login_ok.jsp", req, resp);
+			req.getRequestDispatcher("/login_ok.jsp").forward(req, resp);
 		} 
 	}
-
-	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-		List<Car> c = carService.getCarList();
-		req.setAttribute("carList", c);
-		this.showJSP("/car_list.jsp", req, resp);
-
-	}
-
 }

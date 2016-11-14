@@ -6,7 +6,8 @@
 <body>
 	<h1>Error!</h1>
 	<form action="" method="get">
-	Go to Home.
-	<input type="submit">
-	</form><br></body>
+		Go to Home. <input type="submit">
+	</form>
+	<br>
+</body>
 </html>
