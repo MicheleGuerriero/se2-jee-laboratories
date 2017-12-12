@@ -6,7 +6,7 @@
 	<h1>Login</h1>
 	<div id="direct_login">
 		<form method="post" action="login">
-			<label>Email: </label><input type="text" name="userEmail" /><br />
+			<label>Email: </label><input type="text" name="userEmail" id="email" /><br />
 			<label>Password: </label><input type="password" name="psw" /><br />
 			<input type="submit" value="Login" />
 		</form>

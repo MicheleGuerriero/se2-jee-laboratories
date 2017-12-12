@@ -1,6 +1,7 @@
 package it.polimi.seiiexamples.beans;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -9,28 +10,33 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.servlet.ServletException;
 
+import org.apache.commons.validator.routines.EmailValidator;
+
 import it.polimi.seiiexamples.entities.User;
 
 @Stateless
 public class UserBean {
-
+	
     @PersistenceContext(unitName = "EnjoyDatabase")
     private EntityManager em;
 	
-	public Boolean validate(String userMail, String password) {
-		boolean result = false;
-		Query q = this.em.createQuery("SELECT u FROM User u WHERE u.email = :email" + " AND u.password = :pass");
+	public Integer validate(String userMail, String password) {
+		if(!EmailValidator.getInstance().isValid(userMail)) {
+			return -2;
+		}
+		Query q = this.em.createQuery("SELECT u FROM User u WHERE u.email = :email");
 		q.setParameter("email", userMail);
-		q.setParameter("pass", password);
+		
 		try {
 			User user = (User) q.getSingleResult();
-			if (userMail.equalsIgnoreCase(user.getEmail()) && password.equals(user.getPassword())) {
-				result = true;
+			if (password.equals(user.getPassword())) {
+				return 1;
+			} else {
+				return 0;
 			}
 		} catch (NoResultException e) {
-			return null;
+			return -1;
 		} 
-		return result;
 	}
 
 	public User getUserFromId(int id) {
@@ -50,6 +56,16 @@ public class UserBean {
 
 		} catch (NoResultException ex) {
 			return null;
+		}
+	}
+	
+	public Boolean isValidUser(User u) {
+		if(EmailValidator.getInstance().isValid(u.getEmail())
+				&& !u.getName().equals("")
+				&& !u.getPassword().equals("")) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 	

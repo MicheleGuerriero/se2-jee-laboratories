@@ -44,4 +44,14 @@ public class CarBean {
 			return null;
 		}
 	}
+	
+	public Boolean isValidCarInfor(String carName, String nSpot) throws IOException, ServletException {
+		if (!carName.equals("")
+				&& !nSpot.equals("")
+				&& Integer.parseInt(nSpot) >= 2) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

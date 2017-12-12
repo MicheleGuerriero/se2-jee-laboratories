@@ -42,7 +42,7 @@ public class ReservationBean {
 	@SuppressWarnings("unchecked")
 	public List<Reservation> getActiveFromCar(Car c) {
 		try {
-			return (List<Reservation>) this.em.createQuery("SELECT r FROM Reservation r WHERE r.car=:c AND r.status=true")
+			return (List<Reservation>) this.em.createQuery("SELECT r FROM Reservation r WHERE r.car=:c AND r.isActive=true")
 					.setParameter("c", c).getResultList();
 		} catch (NoResultException ex) {
 			return new ArrayList<Reservation>();
@@ -52,7 +52,7 @@ public class ReservationBean {
 	@SuppressWarnings("unchecked")
 	public List<Reservation> getFinalizedFromCar(Car c) {
 		try {
-			return (List<Reservation>) this.em.createQuery("SELECT r FROM Reservation r WHERE r.car=:c AND r.status=false")
+			return (List<Reservation>) this.em.createQuery("SELECT r FROM Reservation r WHERE r.car=:c AND r.isActive=false")
 					.setParameter("c", c).getResultList();
 		} catch (NoResultException ex) {
 			return new ArrayList<Reservation>();
@@ -74,15 +74,17 @@ public class ReservationBean {
 			em.persist(r);
 	}
 	
-	public Reservation finalizeReservation(String resId)
-			throws IOException, ServletException {
-			Reservation r = getFromId(resId);
-			if (r != null) {
-				em.persist(r);
-				return r;
-			} else {
-				return null;
-			}
+	public Reservation finalizeReservation(User u, Car c) {
+		List<Reservation> res = (List<Reservation>) this.em.createQuery("SELECT r FROM Reservation r WHERE r.car=:c AND r.isActive=true AND r.user=:u")
+		.setParameter("c", c).setParameter("u", u).getResultList();
+		if(!res.isEmpty()) {
+			Reservation toFinalize = res.get(0);
+			toFinalize.setIsActive(0);		
+			this.em.persist(toFinalize);
+			return toFinalize;
+		} else {
+			return null;
+		}
 	}
 	
 }

@@ -38,19 +38,29 @@ public class LoginServlet extends GenericServlet {
 
 		String n = request.getParameter("userEmail");
 		String p = request.getParameter("psw");
-
-		if (userService.validate(n, p)) {
+		
+		Integer validationResult= userService.validate(n, p);
+		
+		if (validationResult == 1) {
 			User u = userService.getUserFromEmail(n);
-			request.getSession().setAttribute("userId", u.getId());
+			request.getSession().setAttribute("user", u);
 			request.setAttribute("userReservations", reservationService.getFromUser(u));
 			request.setAttribute("cars", carService.getCarList());
 
 			RequestDispatcher rd = request.getRequestDispatcher("login_ok.jsp");
 			rd.forward(request, response);
+		} else if(validationResult == -2) {
+			out.print("Invalid email.");
+			RequestDispatcher rd = request.getRequestDispatcher("home.jsp");
+			rd.forward(request, response);
+		} else if(validationResult == 0){
+			out.print("Wrong password for user with email " + n + ".");
+			RequestDispatcher rd = request.getRequestDispatcher("home.jsp");
+			rd.forward(request, response);
 		} else {
-			out.print("Sorry username or password error");
-			RequestDispatcher rd = request.getRequestDispatcher("home.html");
-			rd.include(request, response);
+			out.print("User not found, please register first.");
+			RequestDispatcher rd = request.getRequestDispatcher("home.jsp");
+			rd.forward(request, response);
 		}
 
 		out.close();
