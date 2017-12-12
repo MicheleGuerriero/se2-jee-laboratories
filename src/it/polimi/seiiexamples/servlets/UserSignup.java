@@ -23,18 +23,20 @@ public class UserSignup extends GenericServlet {
 			u.setName(req.getParameter("username"));
 			u.setEmail(req.getParameter("email"));
 			u.setPassword(req.getParameter("psw"));
-			if(userService.insertUser(u) != null){
-				req.getSession().setAttribute("userId", u.getId());
-				// req.setAttribute("user", u);
-				req.getRequestDispatcher("/user_ok.jsp").forward(req, resp);
+			if(userService.isValidUser(u)) {
+				if(userService.insertUser(u) != null){
+					req.getRequestDispatcher("/user_ok.jsp").forward(req, resp);
 
+				} else {
+					req.setAttribute("error", "The email appears to be already registered.");
+					req.getRequestDispatcher("/new_user.jsp").forward(req, resp);
+				}
 			} else {
-				req.getRequestDispatcher("/error.jsp").forward(req, resp);
+				req.setAttribute("error", "One of the fiels is not valid.");
+				req.getRequestDispatcher("/new_user.jsp").forward(req, resp);
 			}
 		} catch (IllegalArgumentException e) {
-			req.setAttribute("username", req.getParameter("username"));
-			req.setAttribute("email", req.getParameter("email"));
-			req.setAttribute("error", e.getMessage());
+			req.setAttribute("error", "booo.");
 			req.getRequestDispatcher("/new_user.jsp").forward(req, resp);
 		} 
 	}
