@@ -42,15 +42,15 @@ public class LoginServlet extends GenericServlet {
 		} else if(validationResult == -2) {
 			out.print("Invalid email.");
 			RequestDispatcher rd = request.getRequestDispatcher("home.jsp");
-			rd.include(request, response);
+			rd.forward(request, response);
 		} else if(validationResult == 0){
 			out.print("Wrong password for user with email " + n + ".");
 			RequestDispatcher rd = request.getRequestDispatcher("home.jsp");
-			rd.include(request, response);
+			rd.forward(request, response);
 		} else {
 			out.print("User not found, please register first.");
 			RequestDispatcher rd = request.getRequestDispatcher("home.jsp");
-			rd.include(request, response);
+			rd.forward(request, response);
 		}
 
 		out.close();
