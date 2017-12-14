@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 
 @Stateless
 public class UserBean {
-
+	
     @PersistenceContext(unitName = "EnjoyDatabase")
     private EntityManager em;
 
@@ -42,7 +42,6 @@ public class UserBean {
         try {
             return (User) em.createQuery("SELECT u FROM User u WHERE u.id=:id").setParameter("id", id)
                     .getSingleResult();
-
         } catch (NoResultException ex) {
             return null;
         }
