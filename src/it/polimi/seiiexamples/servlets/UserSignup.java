@@ -24,9 +24,8 @@ public class UserSignup extends GenericServlet {
 			u.setEmail(req.getParameter("email"));
 			u.setPassword(req.getParameter("psw"));
 			if(userService.isValidUser(u)) {
-				if(userService.insertUser(u) != null){
+				if(userService.insertUser(u)){
 					req.getRequestDispatcher("/user_ok.jsp").forward(req, resp);
-
 				} else {
 					req.setAttribute("error", "The email appears to be already registered.");
 					req.getRequestDispatcher("/new_user.jsp").forward(req, resp);
