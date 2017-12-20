@@ -79,8 +79,8 @@ public class ReservationBean {
 		.setParameter("c", c).setParameter("u", u).getResultList();
 		if(!res.isEmpty()) {
 			Reservation toFinalize = res.get(0);
-			toFinalize.setIsActive(0);		
-			this.em.persist(toFinalize);
+			toFinalize.setIsActive(0);
+                        this.em.merge(toFinalize);
 			return toFinalize;
 		} else {
 			return null;

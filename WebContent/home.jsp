@@ -4,6 +4,11 @@
 </head>
 <body>
 	<h1>Login</h1>
+        <%
+		if(request.getAttribute("error") != null) {
+			out.println("<h2>" + request.getAttribute("error") + "</h2>");
+		}
+	%>
 	<div id="direct_login">
 		<form method="post" action="login">
 			<label>Email: </label><input type="text" name="userEmail" id="email" /><br />

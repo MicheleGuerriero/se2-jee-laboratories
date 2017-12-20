@@ -31,11 +31,10 @@ public class UserSignup extends GenericServlet {
 					req.getRequestDispatcher("/new_user.jsp").forward(req, resp);
 				}
 			} else {
-				req.setAttribute("error", "One of the fiels is not valid.");
+				req.setAttribute("error", "One of the fields is not valid.");
 				req.getRequestDispatcher("/new_user.jsp").forward(req, resp);
 			}
 		} catch (IllegalArgumentException e) {
-			req.setAttribute("error", "booo.");
 			req.getRequestDispatcher("/new_user.jsp").forward(req, resp);
 		} 
 	}

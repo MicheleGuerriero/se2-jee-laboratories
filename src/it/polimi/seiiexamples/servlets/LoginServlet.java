@@ -50,15 +50,15 @@ public class LoginServlet extends GenericServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("login_ok.jsp");
 			rd.forward(request, response);
 		} else if(validationResult == -2) {
-			out.print("Invalid email.");
+                    	request.setAttribute("error", "Invalid email.");
 			RequestDispatcher rd = request.getRequestDispatcher("home.jsp");
 			rd.forward(request, response);
 		} else if(validationResult == 0){
-			out.print("Wrong password for user with email " + n + ".");
+                        request.setAttribute("error", "Wrong password for user with email " + n + ".");
 			RequestDispatcher rd = request.getRequestDispatcher("home.jsp");
 			rd.forward(request, response);
 		} else {
-			out.print("User not found, please register first.");
+                        request.setAttribute("error", "User not found, please register first.");
 			RequestDispatcher rd = request.getRequestDispatcher("home.jsp");
 			rd.forward(request, response);
 		}
